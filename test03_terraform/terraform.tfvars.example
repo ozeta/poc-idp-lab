@@ -1,0 +1,10 @@
+# Fill in the values below.
+# The GitHub token is read from the GITHUB_TOKEN env var (set in .env).
+
+github_owner  = "Oz Inc."
+repository_name        = "my-new-repo"
+repository_description = "Created via Terraform"
+visibility             = "private"
+auto_init              = true
+# gitignore_template   = "Node"
+# license_template     = "mit"

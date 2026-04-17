@@ -1,0 +1,37 @@
+name: Update Python dependencies
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      branch: main
+
+sources:
+  pip:
+    name: Check for pip package updates
+    kind: shell
+    spec:
+      command: pip index versions pip --pre 2>/dev/null | head -1 | grep -oP '\([\d.]+\)'
+
+targets:
+  requirements:
+    name: Update requirements.txt
+    kind: file
+    sourceid: pip
+    spec:
+      file: requirements.txt
+    scmid: default
+
+actions:
+  default:
+    kind: github/pullrequest
+    scmid: default
+    spec:
+      title: "chore(deps): update Python dependencies"
+      labels:
+        - dependencies
+        - automated

@@ -1,0 +1,46 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Backstage: install deps",
+      "type": "shell",
+      "command": "corepack enable && yarn install",
+      "options": {
+        "cwd": "${workspaceFolder}/test02"
+      }
+    },
+    {
+      "label": "Backstage: start",
+      "type": "shell",
+      "command": "yarn start",
+      "options": {
+        "cwd": "${workspaceFolder}/test02"
+      },
+      "isBackground": true
+    },
+    {
+      "label": "Terraform: init",
+      "type": "shell",
+      "command": "terraform init",
+      "options": {
+        "cwd": "${workspaceFolder}/test03_terraform"
+      }
+    },
+    {
+      "label": "Terraform: plan",
+      "type": "shell",
+      "command": "terraform plan",
+      "options": {
+        "cwd": "${workspaceFolder}/test03_terraform"
+      }
+    },
+    {
+      "label": "Terraform: apply",
+      "type": "shell",
+      "command": "terraform apply",
+      "options": {
+        "cwd": "${workspaceFolder}/test03_terraform"
+      }
+    }
+  ]
+}
