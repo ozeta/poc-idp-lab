@@ -41,6 +41,30 @@
       "options": {
         "cwd": "${workspaceFolder}/test03_terraform"
       }
+    },
+    {
+      "label": "OpenTofu: init",
+      "type": "shell",
+      "command": "tofu init",
+      "options": {
+        "cwd": "${workspaceFolder}/test03_terraform"
+      }
+    },
+    {
+      "label": "OpenTofu: plan",
+      "type": "shell",
+      "command": "tofu plan",
+      "options": {
+        "cwd": "${workspaceFolder}/test03_terraform"
+      }
+    },
+    {
+      "label": "OpenTofu: apply",
+      "type": "shell",
+      "command": "tofu apply",
+      "options": {
+        "cwd": "${workspaceFolder}/test03_terraform"
+      }
     }
   ]
 }
