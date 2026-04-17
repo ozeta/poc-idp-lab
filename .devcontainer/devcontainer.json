@@ -9,7 +9,7 @@
     }
   },
   "forwardPorts": [3000, 7007],
-  "postCreateCommand": "bash -lc 'corepack enable && cd test02 && yarn install'",
+  "postCreateCommand": "bash -lc 'cd test02 && corepack yarn install'",
   "remoteUser": "node",
   "customizations": {
     "vscode": {
