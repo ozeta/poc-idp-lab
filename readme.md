@@ -37,6 +37,24 @@ The workspace includes a single devcontainer configuration at `.devcontainer/dev
 
 Location: `pocs/poc-01-backstage`
 
+### Included Scaffolder repo-template
+
+This workspace includes a custom Backstage software template:
+
+- Template definition: `pocs/poc-01-backstage/examples/repo-template/template.yaml`
+- Template content: `pocs/poc-01-backstage/examples/repo-template/content`
+
+Template name in the Scaffolder UI:
+
+- `New Repository with README`
+
+What it does:
+
+- Prompts for repository/component metadata
+- Publishes a new GitHub repository
+- Registers the generated `catalog-info.yaml` in Backstage Catalog
+- Sends a Backstage notification when creation completes
+
 ### PostgreSQL (docker-compose)
 
 A `docker-compose.yml` in `pocs/poc-01-backstage` provides a PostgreSQL 16 instance for Backstage.
@@ -59,11 +77,18 @@ Default connection details (values from `.env`):
 
 | Setting  | Variable           | Default value |
 |----------|--------------------|---------------|
-| Host     | —                  | localhost     |
-| Port     | —                  | 5432          |
+| Host     | `POSTGRES_HOST`    | localhost     |
+| Port     | `POSTGRES_PORT`    | 5432          |
 | User     | `POSTGRES_USER`    | backstage     |
 | Password | `POSTGRES_PASSWORD`| backstage     |
 | Database | `POSTGRES_DB`      | backstage     |
+
+Port exposure and persistence:
+
+- Host port exposure is configured in `docker-compose.yml` as `${POSTGRES_PORT:-5432}:5432`
+- Persistent storage uses the named Docker volume `postgres_data`
+- Data remains available across container restarts and `docker compose down`
+- Data is deleted only when using `docker compose down -v`
 
 Stop and remove:
 
