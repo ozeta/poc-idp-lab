@@ -1,24 +1,113 @@
+
 # Backstage and Terraform Provisioning Workspace
 
-## Backstage repository provisioning test: test02
+This workspace contains two main PoCs under `pocs`:
 
-Install latest Backstage:
+- `poc-01-backstage`: Backstage repository provisioning test
+- `poc-02-terraform`: Terraform/OpenTofu repository provisioning test
 
-```bash
-npx @backstage/create-app@latest
+## Setup Devcontainer environment
+
+The workspace includes a single devcontainer configuration at `.devcontainer/devcontainer.json`.
+
+### What it provides
+
+- Node.js 22 and yarn for Backstage development in `pocs/poc-01-backstage`
+- Terraform tooling for infrastructure workflows in `pocs/poc-02-terraform`
+
+### Start the editor in the devcontainer
+
+1. Install the Dev Containers extension in VS Code (if needed).
+2. Open this repository root folder in VS Code.
+3. Open the Command Palette and run Dev Containers: Reopen in Container.
+4. Wait for container startup; VS Code reconnects automatically.
+
+### Available VS Code tasks
+
+- Backstage: install deps
+- Backstage: start
+- Terraform: init
+- Terraform: plan
+- Terraform: apply
+- OpenTofu: init
+- OpenTofu: plan
+- OpenTofu: apply
+
+## 2. poc-01-backstage (Backstage)
+
+Location: `pocs/poc-01-backstage`
+
+### PostgreSQL (docker-compose)
+
+A `docker-compose.yml` in `pocs/poc-01-backstage` provides a PostgreSQL 16 instance for Backstage.
+
+The image is pinned to a specific digest for reproducibility:
+
+```
+postgres:16@sha256:adaa8b0891d74ee64cc97119c96b4826190ada4644a41d69dfb6c2d96a27f7a3
 ```
 
-Pick a name for the new folder.
-
-From within the folder, create a `.env` file and put a GitHub token with access to `repo`, `workflow`, and `delete_repo`. Then run:
+Environment variables are defined in `pocs/poc-01-backstage/.env`. Load them before running Docker Compose:
 
 ```bash
-source .env && yarn start
+source .env && docker compose up -d
 ```
 
-## Terraform repository provisioning test: test03_terraform
+> Docker Compose also auto-loads a `.env` file in the same directory when you run `docker compose up`. If all variables are set correctly in `.env` (without `export`), sourcing is not required. Use `source .env` explicitly if your shell session needs the variables for other tools too.
 
-Add your GitHub token, then run:
+Default connection details (values from `.env`):
+
+| Setting  | Variable           | Default value |
+|----------|--------------------|---------------|
+| Host     | —                  | localhost     |
+| Port     | —                  | 5432          |
+| User     | `POSTGRES_USER`    | backstage     |
+| Password | `POSTGRES_PASSWORD`| backstage     |
+| Database | `POSTGRES_DB`      | backstage     |
+
+Stop and remove:
+
+```bash
+docker compose down        # keep volume
+docker compose down -v     # also delete data
+```
+
+### Run Backstage
+
+Start the database first, then install and start Backstage from `pocs/poc-01-backstage`:
+
+```bash
+source .env && docker compose up -d
+corepack yarn install
+corepack yarn start
+```
+
+You can also use the VS Code tasks:
+
+- Backstage: install deps
+- Backstage: start
+
+### Notes
+
+- The Backstage app and backend sources are under `pocs/poc-01-backstage/packages/app` and `pocs/poc-01-backstage/packages/backend`.
+- If your flow needs GitHub auth, provide token values through environment variables or a local `.env` file inside `pocs/poc-01-backstage`.
+- Update `app-config.yaml` to point the Backstage backend at the database (see `backend.database`).
+
+## 3. poc-02-terraform (Terraform/OpenTofu)
+
+Location: `pocs/poc-02-terraform`
+
+### Configure credentials
+
+Set a GitHub token in your shell before planning/applying:
+
+```bash
+export GITHUB_TOKEN=<your-token>
+```
+
+### Run with OpenTofu
+
+From `pocs/poc-02-terraform`:
 
 ```bash
 tofu init
@@ -26,32 +115,20 @@ tofu plan
 tofu apply
 ```
 
-## Global devcontainer for test02 and test03_terraform
+### Run with Terraform
 
-A single workspace-level devcontainer is available at `.devcontainer/devcontainer.json`.
-It is set up to support:
+From `pocs/poc-02-terraform`:
 
-- Backstage development in `test02` (Node 22 + yarn)
-- Terraform workflows in `test03_terraform` (Terraform CLI installed)
+```bash
+terraform init
+terraform plan
+terraform apply
+```
 
-### Use it
+You can also use the VS Code tasks for both Terraform and OpenTofu.
 
-1. Open the workspace root in VS Code.
-2. Run Reopen in Container.
-3. After container startup:
-   - `test02` dependencies are installed automatically.
-   - Launch tasks are available from Terminal > Run Task.
+## Quick directory map
 
-### Included tasks
-
-- `Backstage: install deps`
-- `Backstage: start`
-- `Terraform: init`
-- `Terraform: plan`
-- `Terraform: apply`
-
-### Notes
-
-- Terraform commands run in `test03_terraform`.
-- Backstage commands run in `test02`.
-- For GitHub provider auth in Terraform, export `GITHUB_TOKEN` in the container terminal.
+- `pocs/poc-01-backstage`: Backstage application and backend
+- `pocs/poc-02-terraform`: Terraform/OpenTofu templates and state for repo provisioning tests
+- `pocs/poc-02-terraform-created_repo`: Generated output from provisioning test runs
