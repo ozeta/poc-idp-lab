@@ -130,6 +130,12 @@ catalog:
       rules:
         - allow: [Template]
 
+    # New C# repository foundation template
+    - type: file
+      target: ../../examples/csharp-repo-template/template.yaml
+      rules:
+        - allow: [Template]
+
     # Local example organizational data
     - type: file
       target: ../../examples/org.yaml
