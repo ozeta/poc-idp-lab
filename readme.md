@@ -37,16 +37,23 @@ The workspace includes a single devcontainer configuration at `.devcontainer/dev
 
 Location: `pocs/poc-01-backstage`
 
-### Included Scaffolder repo-template
+### Included Scaffolder templates
 
-This workspace includes a custom Backstage software template:
+This workspace includes custom Backstage software templates:
+
+For this PoC, the template is loaded from the `examples` folder.
 
 - Template definition: `pocs/poc-01-backstage/examples/repo-template/template.yaml`
 - Template content: `pocs/poc-01-backstage/examples/repo-template/content`
+- Template definition: `pocs/poc-01-backstage/examples/csharp-repo-template/template.yaml`
+- Template content: `pocs/poc-01-backstage/examples/csharp-repo-template/content`
 
-Template name in the Scaffolder UI:
+You can change this path in `pocs/poc-01-backstage/app-config.yaml` under `catalog.locations` (and in `pocs/poc-01-backstage/app-config.production.yaml` for production).
+
+Template names in the Scaffolder UI:
 
 - `New Repository with README`
+- `New C# Repository Foundation`
 
 What it does:
 
