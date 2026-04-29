@@ -33,29 +33,10 @@ auth:
     guest: {}
 
 catalog:
-  # Overrides the default list locations from app-config.yaml as these contain example data.
-  # See https://backstage.io/docs/features/software-catalog/#adding-components-to-the-catalog for more details
-  # on how to get entities into the catalog.
+  # Source-of-truth catalog bootstrap file in a dedicated repository.
+  # This file should reference all entities, org data, and templates.
+  rules:
+    - allow: [Component, System, API, Resource, Location, User, Group, Template]
   locations:
-    # Local example data, replace this with your production config, these are intended for demo use only.
-    # File locations are relative to the backend process, typically in a deployed context, such as in a Docker container, this will be the root
-    - type: file
-      target: ./examples/entities.yaml
-
-    # Local example template
-    - type: file
-      target: ./examples/template/template.yaml
-      rules:
-        - allow: [Template]
-
-    # New repo with README template
-    - type: file
-      target: ./examples/repo-template/template.yaml
-      rules:
-        - allow: [Template]
-
-    # Local example organizational data
-    - type: file
-      target: ./examples/org.yaml
-      rules:
-        - allow: [User, Group]
+    - type: url
+      target: https://github.com/ozeta/poc-idp-lab-catalog-repository/blob/main/catalog/locations.yaml
