@@ -55,6 +55,10 @@ backend:
       - catalog
       - scaffolder
   # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
+  reading:
+    allow:
+      - host: github.com
+      - host: raw.githubusercontent.com
 
 integrations:
   github:
