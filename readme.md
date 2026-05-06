@@ -164,3 +164,27 @@ You can also use the VS Code tasks for both Terraform and OpenTofu.
 - `pocs/poc-01-backstage`: Backstage application and backend
 - `pocs/poc-02-terraform`: Terraform/OpenTofu templates and state for repo provisioning tests
 - `pocs/poc-02-terraform-created_repo`: Generated output from provisioning test runs
+
+
+# Use GitHub Auth SSO
+
+
+Go to: https://github.com/organizations/Oz-hubs/settings/applications/
+(or your personal settings if you don't have org admin: https://github.com/settings/applications/new)
+
+Field	Value
+Application name	Backstage (dev)
+Homepage URL	http://localhost:3000
+Authorization callback URL	http://localhost:7007/api/auth/github/handler/frame
+After creating it, note the Client ID and generate a Client Secret. You'll need:
+
+```bash
+AUTH_GITHUB_CLIENT_ID=<client-id>
+AUTH_GITHUB_CLIENT_SECRET=<client-secret>
+GITHUB_TOKEN=<your-pat>
+```
+
+**GITHUB_TOKEN must have these scopes:**
+- `read:user` — Read GitHub user profiles (required for sign-in)
+- `email` — Access user email addresses (required for sign-in)
+- `read:org` — Read organization members and teams (required for org catalog ingestion)

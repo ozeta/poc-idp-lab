@@ -88,9 +88,17 @@ techdocs:
 
 auth:
   # see https://backstage.io/docs/auth/ to learn about auth providers
+  environment: development
   providers:
-    # See https://backstage.io/docs/auth/guest/provider
-    guest: {}
+    github:
+      development:
+        clientId: ${AUTH_GITHUB_CLIENT_ID}
+        clientSecret: ${AUTH_GITHUB_CLIENT_SECRET}
+        signIn:
+          resolvers:
+            # Only allow sign-in if the GitHub user exists in the catalog
+            # (i.e., is a member of the Oz-hubs org)
+            - resolver: usernameMatchingUserEntityName
   # see https://backstage.io/docs/ai/mcp-actions#client-id-metadata-documents
   # to learn more about client id metadata documents
   experimentalClientIdMetadataDocuments:
@@ -108,6 +116,15 @@ scaffolder:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options
 
 catalog:
+  providers:
+    githubOrg:
+      id: github-org-provider
+      githubUrl: https://github.com
+      orgs: [Oz-hubs]
+      schedule:
+        frequency: { minutes: 30 }
+        timeout: { minutes: 5 }
+        initialDelay: { seconds: 0 }
   import:
     entityFilename: catalog-info.yaml
     pullRequestBranchName: backstage-integration
@@ -117,8 +134,7 @@ catalog:
     # Source-of-truth catalog bootstrap file in a dedicated repository.
     # This file should reference all entities, org data, and templates.
     - type: url
-      target: https://github.com/ozeta/poc-idp-lab-catalog-repository/blob/main/catalog/locations.yaml
-
+      target: https://raw.githubusercontent.com/Oz-hubs/poc-idp-lab-catalog-repository/main/catalog/locations.yaml
 kubernetes:
   # see https://backstage.io/docs/features/kubernetes/configuration for kubernetes configuration options
 
