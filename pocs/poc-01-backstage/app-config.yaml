@@ -133,6 +133,14 @@ catalog:
         frequency: { minutes: 30 }
         timeout: { minutes: 5 }
         initialDelay: { seconds: 0 }
+    githubDiscovery:
+      id: github-discovery
+      githubUrl: https://github.com
+      orgs: [Oz-hubs]
+      schedule:
+        frequency: { minutes: 30 }
+        timeout: { minutes: 5 }
+        initialDelay: { seconds: 15 }
   import:
     entityFilename: catalog-info.yaml
     pullRequestBranchName: backstage-integration

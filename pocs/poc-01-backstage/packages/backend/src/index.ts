@@ -36,6 +36,8 @@ backend.add(
 );
 // GitHub org module to ingest Oz-hubs members/teams as User/Group entities
 backend.add(import('@backstage/plugin-catalog-backend-module-github-org'));
+// GitHub discovery to auto-discover catalog-info.yaml in Oz-hubs repos
+backend.add(import('@backstage/plugin-catalog-backend-module-github'));
 
 // See https://backstage.io/docs/features/software-catalog/configuration#subscribing-to-catalog-errors
 backend.add(import('@backstage/plugin-catalog-backend-module-logs'));
