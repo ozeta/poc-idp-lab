@@ -28,6 +28,17 @@ backend:
       #   ca: # if you have a CA file and want to verify it you can uncomment this section
       #     $file: <file-path>/ca/server.crt
 
+backend:
+  reading:
+    allow:
+      - host: github.com
+      - host: raw.githubusercontent.com
+
+integrations:
+  github:
+    - host: github.com
+      token: ${GITHUB_TOKEN}
+
 auth:
   providers:
     guest: {}
@@ -39,4 +50,4 @@ catalog:
     - allow: [Component, System, API, Resource, Location, User, Group, Template]
   locations:
     - type: url
-      target: https://github.com/ozeta/poc-idp-lab-catalog-repository/blob/main/catalog/locations.yaml
+      target: https://github.com/Oz-hubs/poc-idp-lab-catalog-repository/blob/dev/oz-hubs/catalog/locations.yaml
