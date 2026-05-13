@@ -66,6 +66,8 @@ integrations:
       # This is a Personal Access Token or PAT from GitHub. You can find out how to generate this token, and more information
       # about setting up the GitHub integration here: https://backstage.io/docs/integrations/github/locations#configuration
       token: ${GITHUB_TOKEN}
+    # - host: raw.githubusercontent.com
+    #   token: ${GITHUB_TOKEN}
     ### Example for how to add your GitHub Enterprise instance using the API:
     # - host: ghe.example.net
     #   apiBaseUrl: https://ghe.example.net/api/v3
@@ -138,7 +140,8 @@ catalog:
     # Source-of-truth catalog bootstrap file in a dedicated repository.
     # This file should reference all entities, org data, and templates.
     - type: url
-      target: https://raw.githubusercontent.com/Oz-hubs/poc-idp-lab-catalog-repository/main/catalog/locations.yaml
+      target: https://github.com/Oz-hubs/poc-idp-lab-catalog-repository/blob/oz-hubs/catalog/locations.yaml
+
 kubernetes:
   # see https://backstage.io/docs/features/kubernetes/configuration for kubernetes configuration options
 
