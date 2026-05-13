@@ -109,7 +109,7 @@ docker compose down -v     # also delete data
 Start the database first, then install and start Backstage from `pocs/poc-01-backstage`:
 
 ```bash
-source .env && docker compose up -d
+set -a; source .env; set +a && docker compose up -d
 corepack yarn install
 corepack yarn start
 ```
