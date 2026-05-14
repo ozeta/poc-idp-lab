@@ -90,7 +90,7 @@ proxy:
 techdocs:
   builder: 'local' # Alternatives - 'external'
   generator:
-    runIn: 'docker' # Alternatives - 'local'
+    runIn: 'local' # Alternatives - 'docker'
   publisher:
     type: 'local' # Alternatives - 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
 
@@ -130,17 +130,18 @@ catalog:
       githubUrl: https://github.com
       orgs: [Oz-hubs]
       schedule:
-        frequency: { minutes: 30 }
-        timeout: { minutes: 5 }
-        initialDelay: { seconds: 0 }
-    githubDiscovery:
-      id: github-discovery
-      githubUrl: https://github.com
-      orgs: [Oz-hubs]
-      schedule:
-        frequency: { minutes: 30 }
-        timeout: { minutes: 5 }
-        initialDelay: { seconds: 15 }
+        frequency: { minutes: 2 }
+        timeout: { minutes: 1 }
+        initialDelay: { seconds: 10 }
+    github:
+      github-discovery:
+        organization: 'Oz-hubs'
+        catalogPath: '/catalog-info.yaml'
+        branch: 'main'
+        schedule:
+          frequency: { minutes: 3 }
+          timeout: { minutes: 1 }
+          initialDelay: { seconds: 15 }
   import:
     entityFilename: catalog-info.yaml
     pullRequestBranchName: backstage-integration

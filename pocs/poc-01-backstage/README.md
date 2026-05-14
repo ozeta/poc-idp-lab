@@ -65,6 +65,11 @@ node scripts/check-catalog-db.mjs
 node scripts/check-catalog-db.mjs "my-component"
 ```
 
+## Catalog & Templates
+
+- The catalog bootstrap and all scaffolder templates are maintained in a separate repository: [`Oz-hubs/poc-idp-lab-catalog-repository`](https://github.com/Oz-hubs/poc-idp-lab-catalog-repository) (branch `oz-hubs`)
+- Templates are registered via `catalog/locations.yaml` in that repository
+
 ## Notes
 
 - `app-config.yaml` uses `auth.environment: development`, so GitHub auth is read from `auth.providers.github.development`
