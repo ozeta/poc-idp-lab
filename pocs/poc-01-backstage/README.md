@@ -47,6 +47,24 @@ This is a scaffolded Backstage App with GitHub organization-based authentication
 - **Frontend gating:** `@backstage/plugin-auth/alpha` (sign-in page shown for unauthenticated users)
 - **Sign-in resolver:** `usernameMatchingUserEntityName` (GitHub username must exist as User entity)
 
+## Scripts
+
+### `check-catalog-db.mjs`
+
+A diagnostic script that queries the Backstage PostgreSQL database and lists all catalog entities, grouped by kind.
+
+It runs automatically at the beginning of `yarn start` to show the current state of the catalog database.
+
+Manual usage:
+
+```sh
+# List all entities
+node scripts/check-catalog-db.mjs
+
+# Filter by name
+node scripts/check-catalog-db.mjs "my-component"
+```
+
 ## Notes
 
 - `app-config.yaml` uses `auth.environment: development`, so GitHub auth is read from `auth.providers.github.development`
