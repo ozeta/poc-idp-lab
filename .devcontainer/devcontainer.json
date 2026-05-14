@@ -1,6 +1,8 @@
 {
   "name": "backstage+terraform-workspace",
-  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "devcontainer",
+  "workspaceFolder": "/workspaces/backstage_test02",
   "features": {
     "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
     "ghcr.io/devcontainers/features/git:1": {},
